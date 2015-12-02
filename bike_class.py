@@ -1,59 +1,53 @@
 #! /usr/bin/env python3
 
-class Bicycle(object):
-    def __init__(self, model_name, model_weight, cost_to_produce):
-        self.model_name = model_name
-        self.model_weight = model_weight
-        self.cost_to_produce = cost_to_produce
-        
-    def __repr__(self):
-        return "\nThe {0} model weighs {1}lbs and costs ${2} to produce".format(self.model_name, self.model_weight, self.cost_to_produce)
+class Customer:
+    def __init__(self, name, fund):
+        self.name = name
+        self.fund = fund
 
-class BikeShop(object):
-    def __init__(self, shop_name, shop_inventory, shop_margin):
-        self.shop_name = shop_name
-        self.shop_inventory = shop_inventory
-        self.shop_margin = shop_margin
-        
-    def __repr(self):
-        return "\nThe shop charges a margin of {} for the bikes.".format(self.shop_margin)
+        """Add a return function to print out the customers funds?"""
 
-class Customer(object):
-    def __init__(self, customer_name, customer_fund):
-        self.customer_name = customer_name
-        self.customer_fund = customer_fund
+class Bicycle:
+    def __init__(self, model, weight, cost):
+        self.model = model
+        self.weight = weight
+        self.cost = cost
 
     def __repr__(self):
-        return"\n{0} has ${1} to spend on a bike.".format(self.customer_name, self.customer_fund)
-"""      
+        template = "The {} weighs {}lbs and costs ${}."
+        return template.format(self.model, self.weight, self.cost)
 
-        
-    def shop_inventory(self, quantity):
-        self.quantity = quantity
-        print("The shop has {} bicycles in inventory".format(quantity))
-        
-    def sales_price(self, cost):
-            super(Bike_Shops, self).__init__()
-            self.production_cost = cost
-            margin = 1.2
-            sales_price = cost * margin
-        
-    def profit(self):
-        #for every bike sold take the sales price and divide by 20% 
-        #need to come up with how many bikes have been sold first
-        print("The bike shop has made {} so far".format(profit()))
-        
-        
-class Customer(object):
-    def __init__(self, name):
-        self.name = customer_name
-        
-    def bike_fund(self):
-        self.bike_fund = bike_fund 
-        
-    def buy_bicycle():
-        print("{0} just purchased a new {1} bike".format(customer_name, Bike(name)))
-        
-Steve = Customer.customer_name
+class BikeShop: 
+    def __init__(self, name, margin, bikes):
+        self.name = name
+        self.margin = margin
+        self.bikes = bikes
 
-"""
+        self.profit = 0
+        self.inventory = {}
+
+        for bike in bikes:
+            bike.markup = int((bike.cost / 100.0) * self.margin)
+            bike.price = bike.cost + bike.markup
+            self.inventory[bike.model] = bike # I don't understand what is happening here.
+
+
+
+
+    def __repr__(self):
+
+        template = "\n{0} (${1} profit)\n{2}\n"
+        bikes = "\n".join( str(bike) for bike in self.inventory.values() )
+        return template.format(self.name, self.profit, bikes)
+
+    def filter(self, budget):
+
+        bikes = self.inventory.values()
+        return [ bike for bike in bikes if bike.price <= budget ]
+
+    def sell(self, bike, customer):
+
+        customer.bike = bike
+        customer.fund -= bike.price
+        self.profit += bike.markup
+        del self.inventory[bike.model]

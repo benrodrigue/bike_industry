@@ -1,59 +1,50 @@
 #! /usr/bin/env python3
 
+import random
 from bike_class import Bicycle, BikeShop, Customer
 
-if __name__ == '__main__':
+# First create a list of Bikes, then create a BikeShop, stocking it
+# with the Bikes...
+
+bikes = [
+    Bicycle("Rock Hopper", 75, 100), Bicycle("Dirt Jumper", 70, 150),
+    Bicycle("Speed Demon", 50, 250), Bicycle("Mountin Top", 90, 350),
+    Bicycle("Road Master", 65, 100), Bicycle("Ghetto King", 75, 550)
+    ]
+
+shop = BikeShop("Surplus Cycles", 20, bikes)
+
+# Now, create a list of Customers, then iterate over them, printing
+# the Customer's name and the Bikes that they can afford...
+
+customers = [Customer("Ali", 200), Customer("Bob", 500), Customer("Caz", 1000)]
+
+for customer in customers:
+
+    bikes = ", ".join( bike.model for bike in shop.filter(customer.fund) )
+    print(customer.name, "|", bikes) # should this be printing the customers name and fund??
+
+# Print the BikeShop before making any sales...
+
+print(shop)
+
+# Iterate over the customers, selling each a Bike, then using a template,
+# print who the customer is, what they bought, what it cost, and how much
+# they have left over...
+
+template = "{0} bought the {1} at ${2}, and they have ${3} left over."
+
+for customer in customers:
     
-    """Create 6 different bicycle models"""
-    first_bike = Bicycle("Speedy", 20, 100)
-    second_bike = Bicycle("Blazer", 40, 150)
-    third_bike = Bicycle("Hip", 35, 650)
-    fourth_bike = Bicycle("Downhill", 20, 720)
-    fifth_bike = Bicycle("Racer", 35, 625)
-    sixth_bike = Bicycle("Pinky", 25, 245)
-
-    """Create a bicycle shop that has six different bicycle models in stock"""
-inventory_list = [
-    first_bike, second_bike, third_bike, fourth_bike, fifth_bike, sixth_bike
-]
-
-bike_shop = BikeShop("Eddies Bike Shop", inventory_list, .2)
-print("\nShop name: {0}.".format(bike_shop.shop_name))
-
-"""Print the initial inventory of the bike shop for each bike it carries."""
-print("\nInventory")
-print("-" * 20)
-
-for bike in inventory_list:
-    bike_msrp = bike.cost_to_produce * bike_shop.shop_margin + bike.cost_to_produce
-    print("{} and the msrp is ${}.".format(bike, bike_msrp))
+    affordables = shop.filter(customer.fund)
+    shop.sell(random.choice(affordables), customer)
     
-"""Create a customer and their bike budget"""
-first_customer = Customer("Walter White", 200)
-second_customer = Customer("Jesse Pinkman", 500)
-third_customer = Customer("Hank Schrader", 1000)
+    print(template.format(
+        customer.name, customer.bike.model,
+        customer.bike.price, customer.fund
+        ))
 
-customer_list = [first_customer, second_customer, third_customer]
+# Print the BikeShop again, now it's made a few sales...
 
+print(shop)
 
-print('\nCustomers')
-print('-' * 20)
-
-"""Print out list of customers"""
-for customer in range(len(customer_list)):
-    print(customer_list[customer])
-
-#parsing inventory_list and customer list for bikes that customers can afford   
-print('\nWhich bikes can they afford?')
-
-"""Print out what bikes customers can afford"""
-for customer in range(len(customer_list)):
-    print("-" * 20)
-    for bike in range(len(inventory_list)):
-        if inventory_list[bike].cost_to_produce <= customer_list[customer].customer_fund:
-            print("{0} can afford the {1}".format(customer_list[customer].customer_name,inventory_list[bike].model_name))
-print('-' * 20)
-
-
-
-"""sample change"""
