@@ -35,18 +35,25 @@ third_customer = Customer("Hank Schrader", 1000)
 
 customer_list = [first_customer, second_customer, third_customer]
 
+
 print('\nCustomers')
 print('-' * 20)
 
+"""Print out list of customers"""
 for customer in range(len(customer_list)):
     print(customer_list[customer])
 
 #parsing inventory_list and customer list for bikes that customers can afford   
 print('\nWhich bikes can they afford?')
 
+"""Print out what bikes customers can afford"""
 for customer in range(len(customer_list)):
     print("-" * 20)
     for bike in range(len(inventory_list)):
         if inventory_list[bike].cost_to_produce <= customer_list[customer].customer_fund:
             print("{0} can afford the {1}".format(customer_list[customer].customer_name,inventory_list[bike].model_name))
 print('-' * 20)
+
+
+
+"""sample change"""
