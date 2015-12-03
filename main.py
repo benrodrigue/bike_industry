@@ -1,23 +1,23 @@
 #! /usr/bin/env python3
 
 import random
-from bike_class import Bicycle, BikeShop, Customer
+from bicycles import Bicycle, BikeShop, Customer
 
 # First create a list of Bikes, then create a BikeShop, stocking it
 # with the Bikes...
 
 bikes = [
-    Bicycle("Rock Hopper", 75, 100), Bicycle("Dirt Jumper", 70, 150),
-    Bicycle("Speed Demon", 50, 250), Bicycle("Mountin Top", 90, 350),
-    Bicycle("Road Master", 65, 100), Bicycle("Ghetto King", 75, 550)
+    Bicycle("Super Speed", 75, 100), Bicycle("Mama Jama", 70, 150),
+    Bicycle("Jumper Jack", 50, 250), Bicycle("Red Racer", 90, 350),
+    Bicycle("Mud Muncher", 65, 100), Bicycle("Blastoff", 75, 550)
     ]
 
-shop = BikeShop("Surplus Cycles", 20, bikes)
+shop = BikeShop("Eddies Bike Shop", 20, bikes)
 
 # Now, create a list of Customers, then iterate over them, printing
 # the Customer's name and the Bikes that they can afford...
 
-customers = [Customer("Ali", 200), Customer("Bob", 500), Customer("Caz", 1000)]
+customers = [Customer("Walter White", 200), Customer("Jesse Pinkman", 500), Customer("Hank Schrader", 1000)]
 
 for customer in customers:
 

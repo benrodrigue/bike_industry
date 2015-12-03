@@ -29,10 +29,7 @@ class BikeShop:
         for bike in bikes:
             bike.markup = int((bike.cost / 100.0) * self.margin)
             bike.price = bike.cost + bike.markup
-            self.inventory[bike.model] = bike # I don't understand what is happening here.
-
-
-
+            self.inventory[bike.model] = bike 
 
     def __repr__(self):
 
